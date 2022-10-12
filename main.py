@@ -3,28 +3,15 @@ from twilio.rest import Client
 
 STOCK_NAME = "BLK"
 COMPANY_NAME = "Blackrock"
-
+MINIMUM_CHANGE = 2
 
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 
 STOCK_API_KEY = "5DR3QR0YHC8VYB8R"
 NEWS_API_KEY = "3f60bc53c6584d05b699e71b3ab5e6fe"
-TWILIO_SID = "ACecd549b14d8aaa870626399ce1119f83"
-TWILIO_AUTH_TOKEN = "e548c06cc0989a1b1daaaa0b5de59d48"
-
-# When stock price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
-
-sentiment_parameters = {
-    "function": "NEWS_SENTIMENT",
-    "symbol": STOCK_NAME,
-    "apikey": STOCK_API_KEY,
-}
-# sentiment_response = requests.get(STOCK_ENDPOINT, params=sentiment_parameters)
-# sentiment_data = sentiment_response.json()
-# sentiment_data_list = [value for (key, value) in sentiment_data.items()]
-# print(sentiment_data_list)
-
+TWILIO_SID = ""
+TWILIO_AUTH_TOKEN = ""
 
 # Get yesterday's closing stock price.
 stock_parameters = {
@@ -62,7 +49,7 @@ percentage_diff = (difference / float(yesterday_closing_price)) * 100
 print(percentage_diff)
 
 # If percentage is greater than the users chosen amount then use the News API to get articles related to the COMPANY.
-if abs(percentage_diff) > 1:
+if abs(percentage_diff) > MINUMUM_CHANGE:
     news_params = {
         "apiKey": NEWS_API_KEY,
         "qInTitle": COMPANY_NAME,
@@ -86,5 +73,6 @@ if abs(percentage_diff) > 1:
         message = client.messages.create(
             body=article,
             from_="+12059278615",
-            to="+447514024806"
+#           # Users phone number below
+            to=""
         )
