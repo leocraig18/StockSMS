@@ -12,9 +12,12 @@ Twilio was used as the communication API for SMS as it provides a free trial and
 In order to automate this program I used 'Python Anywhere' (by Anaconda) to run the program at a set time every 24 hours. I used this web dashboard as it is easy to get started and is free to automate one task every 24 hours.
 
 User Guide:
-To get started, go to https://www.twilio.com and sign up to get a free SID and Authentication Token and insert them on lines 12 and 13 of main.py. Additionally, you can use the Twilio from_ phone number they provide you with and insert it into line 87. This will be the number you receive your SMS from. Enter your phone number you used to recieve your SID and AUTH TOKEN into line 88.
+To get started, go to https://www.twilio.com and sign up to get a free SID and Authentication Token and insert them into the TWILIO_SID TWILIO_AUTH_TOKEN variables in main.py. Additionally, you can use the Twilio from_ phone number they provide you with and insert it into the TWILIO_PHONE_NUMBER variable. This will be the number you receive your SMS from. Enter your phone number you used to recieve your SID and AUTH TOKEN into the USER_PHONE_NUMBER variable .
 At the top of the file you can edit the stock symbol that the program retrieves data for, and the name of the company you want the NewsAPI to scrape for. Finally, the variable NEWS_ARTICLES_RECEIVED can be set to the amount of articles you want to be texted along with your stock update SMS.
 That's Everthing!
+
+Testing:
+When testing, set the MINIMUM_CHANGE variable to 1 or even 0.1. This is to ensure that if the volatility of the stock you are tracking is low, it will still trigger an SMS delivery. For example if MINIMUM_CHANGE is set to 3, any daily change less than 3% will not trigger the if statement.
 
 Critical Analysis:
 Whilst this project is fit for current purpose, the method undertook is undermined by lack of scalability. Many of these issues could be fixed with the use of paid technologies as opposed to the ones used in this project. 
