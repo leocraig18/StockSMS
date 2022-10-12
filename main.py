@@ -3,7 +3,9 @@ from twilio.rest import Client
 
 STOCK_NAME = "BLK"
 COMPANY_NAME = "Blackrock"
-MINIMUM_CHANGE = 2
+NEWS_ARTICLES_RECEIVED = 3
+TWILIO_PHONE_NUMBER =""
+USER_PHONE_NUMBER =""
 
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
@@ -49,7 +51,7 @@ percentage_diff = (difference / float(yesterday_closing_price)) * 100
 print(percentage_diff)
 
 # If percentage is greater than the users chosen amount then use the News API to get articles related to the COMPANY.
-if abs(percentage_diff) > MINUMUM_CHANGE:
+if abs(percentage_diff) > 1:
     news_params = {
         "apiKey": NEWS_API_KEY,
         "qInTitle": COMPANY_NAME,
@@ -60,7 +62,7 @@ if abs(percentage_diff) > MINUMUM_CHANGE:
     print(articles)
 
     # Use the slice operator to create a list containing the first 3 articles.
-    three_articles = articles[:3]
+    three_articles = articles[:NEWS_ARTICLES_RECEIVED]
     print(three_articles)
 
     # Create a new list of the first 3 article's headlines and descriptions.
@@ -72,7 +74,7 @@ if abs(percentage_diff) > MINUMUM_CHANGE:
     for article in formatted_articles:
         message = client.messages.create(
             body=article,
-            from_="+12059278615",
-#           # Users phone number below
-            to=""
+            from_=TWILIO_PHONE_NUMBER,
+            to=USER_PHONE_NUMBER
         )
+
