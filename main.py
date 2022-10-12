@@ -1,9 +1,10 @@
 import requests
 from twilio.rest import Client
 
-STOCK_NAME = "BLK"
-COMPANY_NAME = "Blackrock"
+STOCK_NAME = ""
+COMPANY_NAME = ""
 NEWS_ARTICLES_RECEIVED = 3
+MINIMUM_CHANGE = 1
 TWILIO_PHONE_NUMBER =""
 USER_PHONE_NUMBER =""
 
@@ -51,7 +52,7 @@ percentage_diff = (difference / float(yesterday_closing_price)) * 100
 print(percentage_diff)
 
 # If percentage is greater than the users chosen amount then use the News API to get articles related to the COMPANY.
-if abs(percentage_diff) > 1:
+if abs(percentage_diff) > MINIMUM_CHANGE:
     news_params = {
         "apiKey": NEWS_API_KEY,
         "qInTitle": COMPANY_NAME,
